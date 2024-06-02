@@ -82,7 +82,6 @@ const locations = [
         "button functions": [restart, restart, restart],
         text: "You defeat the dragon! YOU WIN THE GAME! &#x1F389;"
     }
-
 ];
 
 // initialize buttons
@@ -99,7 +98,6 @@ function update(location) {
     button2.onclick = location["button functions"][1];
     button3.onclick = location["button functions"][2];
     text.innerHTML = location.text;
-
 }
 
 function goTown() {
@@ -187,9 +185,8 @@ function attack() {
     if (isMonsterHit()) {
         monsterHealth -= weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1;
     } else {
-        text.innerText += " You miss."
+        text.innerText += " You miss.";
     }
-
     healthText.innerText = health;
     monsterHealthText.innerText = monsterHealth;
     if (health <= 0) {
@@ -201,6 +198,11 @@ function attack() {
             defeatMonster();
         }
     }
+    if (Math.random() <= .1) {
+        text.innerText += " Your " + inventory.pop() + " breaks.";
+        currentWeaponIndex--;
+
+    }
 }
 
 function getMonsterAttackValue(level) {
@@ -209,6 +211,9 @@ function getMonsterAttackValue(level) {
     return hit > 0 ? hit : 0;
 }
 
+function isMonsterHit() {
+    return Math.random() > .2 || health < 20;
+}
 
 function dodge() {
     text.innerText = "You dodge the attack from the " + monsters[fighting].name;
@@ -227,7 +232,7 @@ function lose() {
 }
 
 function winGame() {
-    update(locations[6])
+    update(locations[6]);
 }
 
 function restart() {
